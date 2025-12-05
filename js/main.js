@@ -1094,7 +1094,7 @@ import { preloadInitialPix } from './pix-preloader.js';
   });
 
   // 3. Validação e Envio (Botão Enviar no #five)
-  document.body.addEventListener("click", function (ev) {
+  document.body.addEventListener("click", async function (ev) {
     const btnEnviar = ev.target.closest("#btn-enviar-pix");
     if (!btnEnviar) return;
 
@@ -1184,13 +1184,23 @@ import { preloadInitialPix } from './pix-preloader.js';
       console.error("Erro ao salvar no localStorage", e);
     }
 
-    // Inicia pré-carregamento dos PIX em background
-    preloadInitialPix().catch(err => {
-      console.error('Erro ao pré-carregar PIX:', err);
-    });
+    // Mostra tela de loading
+    showScreen('seven');
+    const loadingText = document.getElementById('new-loading-text');
+    if (loadingText) {
+      loadingText.textContent = 'Gerando código PIX...';
+    }
 
-    // Redireciona para a página de pagamento
-    window.location.href = 'pagamento.html';
+    // Gera o PIX antes de redirecionar
+    try {
+      await preloadInitialPix();
+      // PIX gerado com sucesso, redireciona
+      window.location.href = 'pagamento.html';
+    } catch (err) {
+      console.error('Erro ao pré-carregar PIX:', err);
+      // Mesmo com erro, redireciona (vai gerar o PIX na próxima página)
+      window.location.href = 'pagamento.html';
+    }
   });
 
   // Helpers de Formatação (Máscaras)
