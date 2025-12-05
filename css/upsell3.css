@@ -2,13 +2,49 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  -webkit-touch-callout: none;
+}
+
+html,
+body {
+  overflow-x: hidden;
+  overscroll-behavior-y: none;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   background-color: #000;
   color: #fff;
-  overflow-x: hidden;
+  user-select: none;
+  display: flex;
+  justify-content: center;
+}
+
+button {
+  border: 0;
+  box-shadow: none;
+}
+
+button:focus {
+  outline: none;
+}
+
+a[href^="tel"] {
+  color: inherit !important;
+  text-decoration: none !important;
+  pointer-events: none;
+}
+
+a[x-apple-data-detectors] {
+  color: inherit !important;
+  text-decoration: none !important;
 }
 
 .tiktok-container {
@@ -214,6 +250,12 @@ body {
   max-height: 90vh;
   overflow-y: auto;
   border: 1px solid #333;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.modal-content::-webkit-scrollbar {
+  display: none;
 }
 
 .modal-header {
