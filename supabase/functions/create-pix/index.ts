@@ -28,13 +28,17 @@ Deno.serve(async (req: Request) => {
   }
 
   try {
-    const publicKey = Deno.env.get("AUREOPAY_PUBLIC_KEY");
-    const secretKey = Deno.env.get("AUREOPAY_SECRET_KEY");
+    const paradiseApiKey = Deno.env.get("PARADISE_API_KEY");
+    const paradiseProductHash = Deno.env.get("PARADISE_PRODUCT_HASH");
     const supabaseUrl = Deno.env.get("SUPABASE_URL");
     const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
 
-    if (!publicKey || !secretKey) {
-      throw new Error("Chaves da Aureo Pay não configuradas");
+    if (!paradiseApiKey) {
+      throw new Error("Paradise API Key não configurada");
+    }
+
+    if (!paradiseProductHash) {
+      throw new Error("Paradise Product Hash não configurado");
     }
 
     if (!supabaseUrl || !supabaseKey) {
@@ -53,42 +57,26 @@ Deno.serve(async (req: Request) => {
       throw new Error("Valor inválido");
     }
 
-    const auth = "Basic " + btoa(publicKey + ":" + secretKey);
+    const reference = `pix-${Date.now()}-${transactionType}`;
 
     const payload = {
       amount: amountInCents,
-      paymentMethod: "pix",
-      currency: "BRL",
-      installments: 1,
-      postbackUrl: `${supabaseUrl}/functions/v1/aureopay-webhook`,
-      externalRef: `pix-${Date.now()}`,
-      items: [
-        {
-          title: itemTitle,
-          quantity: 1,
-          tangible: false,
-          unitPrice: amountInCents,
-          externalRef: `taxa-${transactionType}`,
-        },
-      ],
+      description: itemTitle,
+      reference: reference,
+      productHash: paradiseProductHash,
+      postback_url: `${supabaseUrl}/functions/v1/paradise-webhook`,
       customer: {
         name: body.customerName,
         email: body.customerEmail,
-        phone: body.customerPhone,
-        document: {
-          type: "cpf",
-          number: body.customerDocument.replace(/\D/g, ""),
-        },
-      },
-      pix: {
-        expirationDate: new Date(Date.now() + 30 * 60 * 1000).toISOString().split("T")[0],
+        phone: body.customerPhone.replace(/\D/g, ""),
+        document: body.customerDocument.replace(/\D/g, ""),
       },
     };
 
-    const response = await fetch("https://api.aureolink.com.br/v1/transactions", {
+    const response = await fetch("https://multi.paradisepags.com/api/v1/transaction.php", {
       method: "POST",
       headers: {
-        Authorization: auth,
+        "X-API-Key": paradiseApiKey,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(payload),
@@ -96,13 +84,19 @@ Deno.serve(async (req: Request) => {
 
     if (!response.ok) {
       const error = await response.text();
-      throw new Error(`Erro da Aureo Pay: ${error}`);
+      throw new Error(`Erro da Paradise: ${error}`);
     }
 
     const data = await response.json();
 
+    if (data.status !== "success") {
+      throw new Error(data.message || "Erro ao criar transação");
+    }
+
+    const expiresAt = data.expires_at ? new Date(data.expires_at) : null;
+
     const { error: dbError } = await supabase.from("transactions").insert({
-      transaction_id: data.id.toString(),
+      transaction_id: data.transaction_id.toString(),
       customer_name: body.customerName,
       customer_email: body.customerEmail,
       customer_phone: body.customerPhone,
@@ -110,9 +104,9 @@ Deno.serve(async (req: Request) => {
       pix_key: body.pixKey,
       pix_key_type: body.pixKeyType,
       amount: amountInReais,
-      status: data.status,
-      qrcode: data.pix?.qrcode,
-      expiration_date: data.pix?.expirationDate,
+      status: "pending",
+      qrcode: data.qr_code,
+      expiration_date: expiresAt ? expiresAt.toISOString().split("T")[0] : null,
       transaction_type: transactionType,
     });
 
@@ -123,12 +117,11 @@ Deno.serve(async (req: Request) => {
     return new Response(
       JSON.stringify({
         success: true,
-        transactionId: data.id,
-        qrcode: data.pix?.qrcode,
+        transactionId: data.transaction_id,
+        qrcode: data.qr_code,
         amount: amountInReais,
-        expirationDate: data.pix?.expirationDate,
-        status: data.status,
-        secureUrl: data.secureUrl,
+        expirationDate: expiresAt ? expiresAt.toISOString() : null,
+        status: "pending",
       }),
       {
         headers: {
