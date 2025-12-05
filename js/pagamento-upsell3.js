@@ -5,13 +5,11 @@ let paymentCheckInterval = null;
 
 document.addEventListener('DOMContentLoaded', () => {
   const payButton = document.getElementById('pay-button');
-  const skipLink = document.getElementById('skip-link');
   const pixModal = document.getElementById('pix-modal');
   const closeModal = document.getElementById('close-modal');
   const copyButton = document.getElementById('copy-button');
 
   payButton.addEventListener('click', handlePayment);
-  skipLink.addEventListener('click', handleSkip);
   closeModal.addEventListener('click', closePixModal);
   copyButton.addEventListener('click', copyPixCode);
 });
@@ -166,14 +164,4 @@ function copyPixCode() {
   setTimeout(() => {
     copyButton.classList.remove('copied');
   }, 2000);
-}
-
-function handleSkip(e) {
-  e.preventDefault();
-
-  const confirmed = confirm('Tem certeza que deseja pular esta etapa? Sua transferência pode ser bloqueada permanentemente.');
-
-  if (confirmed) {
-    window.location.href = 'confirmacao.html';
-  }
 }
