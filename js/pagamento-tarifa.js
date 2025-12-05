@@ -4,12 +4,15 @@ const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 let paymentCheckInterval = null;
+let timerInterval = null;
+let timeLeft = 600;
 
 document.addEventListener('DOMContentLoaded', () => {
   const copyButton = document.getElementById('copy-button');
   copyButton.addEventListener('click', copyPixCode);
 
   createPixPayment();
+  startTimer();
 });
 
 async function createPixPayment() {
@@ -117,4 +120,32 @@ function copyPixCode() {
   setTimeout(() => {
     copyButton.classList.remove('copied');
   }, 2000);
+}
+
+function startTimer() {
+  const timerElement = document.getElementById('timer');
+  const timerWarning = document.querySelector('.timer-warning');
+
+  if (!timerElement) return;
+
+  timerInterval = setInterval(() => {
+    timeLeft--;
+
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+
+    timerElement.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+    if (timeLeft <= 0) {
+      clearInterval(timerInterval);
+      clearInterval(paymentCheckInterval);
+      timerElement.textContent = 'EXPIRADO';
+      timerWarning.classList.add('expired');
+
+      setTimeout(() => {
+        alert('O tempo para pagamento expirou. Gerando novo código...');
+        window.location.reload();
+      }, 1000);
+    }
+  }, 1000);
 }

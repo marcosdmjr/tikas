@@ -112,6 +112,39 @@ a[x-apple-data-detectors] {
   font-weight: 600;
 }
 
+.timer-warning {
+  background: #fff4e6;
+  border: 1px solid #ffb020;
+  border-radius: 8px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  color: #c87900;
+  font-size: 13px;
+}
+
+.timer-warning svg {
+  flex-shrink: 0;
+}
+
+.timer-warning strong {
+  color: #c87900;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.timer-warning.expired {
+  background: #fee2e2;
+  border-color: #ef4444;
+  color: #dc2626;
+}
+
+.timer-warning.expired strong {
+  color: #dc2626;
+}
+
 .pix-info {
   display: flex;
   flex-direction: column;
