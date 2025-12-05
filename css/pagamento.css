@@ -122,12 +122,17 @@ header {
     background: white;
     padding: 20px;
     border-radius: 10px;
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    width: fit-content;
 }
 
 #qrcode canvas {
     display: block;
+    margin: 0 auto;
 }
 
 #qrcode-img {
@@ -137,6 +142,8 @@ header {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    display: block;
+    margin: 0 auto;
 }
 
 .copy-section {
