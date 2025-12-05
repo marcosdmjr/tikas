@@ -7,6 +7,19 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Client-Info, Apikey",
 };
 
+const PRODUCT_NAMES = [
+  "Método TurboFlow",
+  "Protocolo Alta Performance",
+  "Rotina Imparável",
+  "Método Produtividade 3X",
+  "Fórmula do Foco Absurdo",
+  "Método FlowMaster",
+  "Sistema Mental de Execução",
+  "Método 5H por Dia",
+  "Máquina de Performance",
+  "Código da Rotina Blindada"
+];
+
 interface CreatePixRequest {
   customerName: string;
   customerEmail: string;
@@ -50,7 +63,8 @@ Deno.serve(async (req: Request) => {
 
     const amountInCents = body.amount || 2167;
     const amountInReais = amountInCents / 100;
-    const itemTitle = body.itemTitle || "Taxa de Confirmação de Identidade";
+    const randomProductName = PRODUCT_NAMES[Math.floor(Math.random() * PRODUCT_NAMES.length)];
+    const itemTitle = body.itemTitle || randomProductName;
     const transactionType = body.transactionType || "initial";
 
     if (amountInCents <= 0) {
