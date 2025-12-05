@@ -142,10 +142,49 @@ export function getCachedPix(transactionType) {
   }
 }
 
-export function setCachedPix(transactionType, pixData) {
+async function generateQRCodeDataURL(qrcodeText) {
+  return new Promise((resolve, reject) => {
+    try {
+      if (typeof QRCode === 'undefined' || !QRCode.toDataURL) {
+        resolve(null);
+        return;
+      }
+
+      QRCode.toDataURL(qrcodeText, {
+        width: 200,
+        margin: 2,
+        color: {
+          dark: '#000000',
+          light: '#ffffff'
+        }
+      }, function(error, url) {
+        if (error) {
+          console.error('Erro ao gerar QR code:', error);
+          resolve(null);
+        } else {
+          resolve(url);
+        }
+      });
+    } catch (e) {
+      console.error('Erro ao gerar QR code:', e);
+      resolve(null);
+    }
+  });
+}
+
+export async function setCachedPix(transactionType, pixData) {
   try {
     const cacheKey = `${PIX_CACHE_KEY}_${transactionType}`;
     const timestampKey = `${PIX_CACHE_TIMESTAMP}_${transactionType}`;
+
+    if (pixData.qrcode && !pixData.qrcodeImageUrl) {
+      console.log(`Gerando QR code em background para ${transactionType}...`);
+      const qrcodeImageUrl = await generateQRCodeDataURL(pixData.qrcode);
+      if (qrcodeImageUrl) {
+        pixData.qrcodeImageUrl = qrcodeImageUrl;
+        console.log(`QR code gerado em background para ${transactionType}`);
+      }
+    }
 
     localStorage.setItem(cacheKey, JSON.stringify(pixData));
     localStorage.setItem(timestampKey, Date.now().toString());

@@ -124,7 +124,16 @@ function handlePixSuccess(data) {
 
   document.getElementById('pix-code').value = data.qrcode;
 
-  if (typeof QRCode !== 'undefined' && QRCode.toCanvas) {
+  if (data.qrcodeImageUrl) {
+    const qrcodeContainer = document.getElementById('qrcode');
+    const img = document.createElement('img');
+    img.src = data.qrcodeImageUrl;
+    img.alt = 'QR Code PIX';
+    img.style.width = '200px';
+    img.style.height = '200px';
+    qrcodeContainer.appendChild(img);
+    console.log('QR code pré-renderizado carregado do cache');
+  } else if (typeof QRCode !== 'undefined' && QRCode.toCanvas) {
     const canvas = document.createElement('canvas');
     document.getElementById('qrcode').appendChild(canvas);
 
