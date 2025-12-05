@@ -223,7 +223,7 @@ function iniciarVerificacaoPagamento(idTransacao) {
 
     if (isPaid) {
       clearInterval(checkPaymentInterval);
-      window.location.href = '/validacao-seguranca.html';
+      window.location.href = 'pagamento-upsell2.html';
     }
   }, 5000);
 }

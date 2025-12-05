@@ -20,6 +20,7 @@ export default defineConfig({
         'validacao-seguranca': resolve(__dirname, 'validacao-seguranca.html'),
         'pagamento-upsell1': resolve(__dirname, 'pagamento-upsell1.html'),
         'pagamento-upsell2': resolve(__dirname, 'pagamento-upsell2.html'),
+        'pagamento-upsell3': resolve(__dirname, 'pagamento-upsell3.html'),
         'confirmacao': resolve(__dirname, 'confirmacao.html'),
       }
     }

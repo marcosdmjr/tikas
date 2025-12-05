@@ -218,7 +218,7 @@ function iniciarVerificacaoPagamento(idTransacao) {
 
     if (isPaid) {
       clearInterval(checkPaymentInterval);
-      window.location.href = '/confirmacao.html';
+      window.location.href = 'pagamento-upsell3.html';
     }
   }, 5000);
 }
