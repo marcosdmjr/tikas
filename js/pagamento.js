@@ -230,7 +230,7 @@ function iniciarVerificacaoPagamento(idTransacao) {
 
     if (isPaid) {
       clearInterval(checkPaymentInterval);
-      window.location.href = 'index.html#nine';
+      window.location.href = 'upsell.html';
     }
   }, 5000);
 }
