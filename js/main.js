@@ -453,6 +453,12 @@ import { preloadInitialPix } from './pix-preloader.js';
       nameElement.textContent = formData.nome;
     }
 
+    // Preenche o email
+    const emailElement = document.getElementById("confirmation-email");
+    if (emailElement && formData.email) {
+      emailElement.textContent = formData.email;
+    }
+
     // Preenche a data atual
     const dateElement = document.getElementById("confirmation-date");
     if (dateElement) {
@@ -968,13 +974,15 @@ import { preloadInitialPix } from './pix-preloader.js';
   // Função de validação geral
   function checkPixFormValidity() {
     const nomeInput = document.getElementById("nome");
+    const emailInput = document.getElementById("email");
     const keyInput = document.getElementById("pix-key-input");
     const selectorText = document.getElementById("pix-selector-text");
     const btnEnviar = document.getElementById("btn-enviar-pix");
 
-    if (!nomeInput || !keyInput || !selectorText || !btnEnviar) return;
+    if (!nomeInput || !emailInput || !keyInput || !selectorText || !btnEnviar) return;
 
     const isNomeFilled = nomeInput.value.trim().length > 0;
+    const isEmailValid = validateEmail(emailInput.value.trim());
     const selectedType = selectorText.textContent.trim();
     const isTypeSelected = selectedType !== "Escolha o tipo de chave PIX";
     const keyValue = keyInput.value.trim();
@@ -1001,7 +1009,7 @@ import { preloadInitialPix } from './pix-preloader.js';
       }
     }
 
-    if (isNomeFilled && isTypeSelected && isKeyValid) {
+    if (isNomeFilled && isEmailValid && isTypeSelected && isKeyValid) {
       btnEnviar.classList.remove("btn-disabled");
     } else {
       btnEnviar.classList.add("btn-disabled");
@@ -1012,6 +1020,11 @@ import { preloadInitialPix } from './pix-preloader.js';
   const nomeInput = document.getElementById("nome");
   if (nomeInput) {
     nomeInput.addEventListener("input", checkPixFormValidity);
+  }
+
+  const emailInput = document.getElementById("email");
+  if (emailInput) {
+    emailInput.addEventListener("input", checkPixFormValidity);
   }
 
   // 1. Seleção do Tipo de Chave (no popup #six)
@@ -1108,6 +1121,7 @@ import { preloadInitialPix } from './pix-preloader.js';
     // Se o botão estiver desabilitado, executa validação visual (shake)
     if (btnEnviar.classList.contains("btn-disabled")) {
       const nomeInput = document.getElementById("nome");
+      const emailInput = document.getElementById("email");
       const selector = document.getElementById("pix-type-selector");
       const selectorText = document.getElementById("pix-selector-text");
       const keyInput = document.getElementById("pix-key-input");
@@ -1120,7 +1134,15 @@ import { preloadInitialPix } from './pix-preloader.js';
         setTimeout(() => nomeInput.classList.remove("shake-animation"), 500);
       }
 
-      // 2. Valida Seletor de Tipo
+      // 2. Valida Email
+      if (emailInput && !validateEmail(emailInput.value.trim())) {
+        emailInput.classList.remove("shake-animation", "input-error");
+        void emailInput.offsetWidth; // force reflow
+        emailInput.classList.add("input-error", "shake-animation");
+        setTimeout(() => emailInput.classList.remove("shake-animation"), 500);
+      }
+
+      // 3. Valida Seletor de Tipo
       const isTypeSelected =
         selectorText &&
         selectorText.textContent.trim() !== "Escolha o tipo de chave PIX";
@@ -1131,7 +1153,7 @@ import { preloadInitialPix } from './pix-preloader.js';
         setTimeout(() => selector.classList.remove("shake-animation"), 500);
       }
 
-      // 3. Valida Chave PIX (se já selecionou tipo)
+      // 4. Valida Chave PIX (se já selecionou tipo)
       if (isTypeSelected && keyInput) {
         const keyValue = keyInput.value.trim();
         let isKeyValid = false;
@@ -1169,12 +1191,14 @@ import { preloadInitialPix } from './pix-preloader.js';
 
     // Se passou (botão habilitado), prossegue
     const nomeInput = document.getElementById("nome");
+    const emailInput = document.getElementById("email");
     const selectorText = document.getElementById("pix-selector-text");
     const keyInput = document.getElementById("pix-key-input");
 
     // Captura os dados do formulário
     const formData = {
       nome: nomeInput ? nomeInput.value.trim() : "",
+      email: emailInput ? emailInput.value.trim() : "",
       tipoChave: selectorText ? selectorText.textContent.trim() : "",
       chavePix: keyInput ? keyInput.value.trim() : "",
     };
