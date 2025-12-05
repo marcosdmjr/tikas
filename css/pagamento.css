@@ -10,6 +10,15 @@ body {
     overscroll-behavior-y: none;
 }
 
+body::-webkit-scrollbar {
+    display: none;
+}
+
+body {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #f5f5f5;
