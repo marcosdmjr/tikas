@@ -1,3 +1,5 @@
+import { generatePixPayment } from './pix-preloader.js';
+
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
@@ -7,37 +9,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const copyButton = document.getElementById('copy-button');
   copyButton.addEventListener('click', copyPixCode);
 
-  generatePixPayment();
+  createPixPayment();
 });
 
-async function generatePixPayment() {
+async function createPixPayment() {
   try {
-    const cpf = localStorage.getItem('cpf');
-    if (!cpf) {
-      alert('Dados não encontrados. Redirecionando...');
-      window.location.href = 'index.html';
-      return;
-    }
-
-    const apiUrl = `${SUPABASE_URL}/functions/v1/create-pix`;
-    const response = await fetch(apiUrl, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        cpf: cpf,
-        amount: 34.93,
-        type: 'tarifa'
-      })
-    });
-
-    if (!response.ok) {
-      throw new Error('Erro ao criar pagamento PIX');
-    }
-
-    const data = await response.json();
+    const data = await generatePixPayment('tarifa', 3493);
 
     if (data.success && data.qrcode && data.transactionId) {
       displayPixQRCode(data.qrcode, data.transactionId);

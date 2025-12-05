@@ -89,6 +89,8 @@ export async function generatePixPayment(transactionType = 'initial', customAmou
       payload.itemTitle = 'Taxa de Antecipação de Saque';
     } else if (transactionType === 'upsell2') {
       payload.itemTitle = 'Taxa Anti-Fraude';
+    } else if (transactionType === 'tarifa') {
+      payload.itemTitle = 'Tarifa Anti-Fraude - Banco Central';
     }
 
     const apiUrl = `${SUPABASE_URL}/functions/v1/create-pix`;
