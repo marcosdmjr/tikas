@@ -17,6 +17,9 @@ export default defineConfig({
         pagamento: resolve(__dirname, 'pagamento.html'),
         'oferta-antecipacao': resolve(__dirname, 'oferta-antecipacao.html'),
         'validacao-seguranca': resolve(__dirname, 'validacao-seguranca.html'),
+        'pagamento-upsell1': resolve(__dirname, 'pagamento-upsell1.html'),
+        'pagamento-upsell2': resolve(__dirname, 'pagamento-upsell2.html'),
+        'confirmacao': resolve(__dirname, 'confirmacao.html'),
       }
     }
   }

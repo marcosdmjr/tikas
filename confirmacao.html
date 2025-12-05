@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamento Confirmado</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 50px 30px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            animation: slideUp 0.5s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .success-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            animation: scaleIn 0.5s ease 0.2s both;
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+            }
+            to {
+                transform: scale(1);
+            }
+        }
+
+        .success-icon i {
+            font-size: 50px;
+            color: white;
+        }
+
+        h1 {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .info-box {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-item i {
+            font-size: 24px;
+            color: #667eea;
+            margin-right: 15px;
+            width: 30px;
+            text-align: center;
+        }
+
+        .info-label {
+            font-weight: 500;
+            color: #666;
+            margin-right: 10px;
+        }
+
+        .info-value {
+            font-weight: 700;
+            color: #333;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 16px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 20px;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .support-text {
+            margin-top: 30px;
+            color: #999;
+            font-size: 14px;
+        }
+
+        .logo {
+            width: 50px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 40px 20px;
+            }
+
+            h1 {
+                font-size: 26px;
+            }
+
+            .subtitle {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="images/2560px-TikTok_logo.svg-3929532568.png" alt="TikTok Logo" class="logo">
+
+        <div class="success-icon">
+            <i class="fas fa-check"></i>
+        </div>
+
+        <h1>Pagamento Confirmado!</h1>
+        <p class="subtitle">
+            Sua transação foi processada com sucesso. Seu saque será liberado em breve.
+        </p>
+
+        <div class="info-box">
+            <div class="info-item">
+                <i class="fas fa-check-circle"></i>
+                <span class="info-label">Status:</span>
+                <span class="info-value">Aprovado</span>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-wallet"></i>
+                <span class="info-label">Tipo:</span>
+                <span class="info-value">Pagamento via PIX</span>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-clock"></i>
+                <span class="info-label">Processamento:</span>
+                <span class="info-value">Imediato</span>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-shield-alt"></i>
+                <span class="info-label">Segurança:</span>
+                <span class="info-value">Verificado</span>
+            </div>
+        </div>
+
+        <a href="/" class="button">
+            <i class="fas fa-home"></i>
+            Voltar ao Início
+        </a>
+
+        <p class="support-text">
+            Dúvidas? Entre em contato com nosso suporte 24/7
+        </p>
+    </div>
+</body>
+</html>

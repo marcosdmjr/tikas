@@ -84,7 +84,9 @@ async function createPixPayment() {
       customerDocument: cpf,
       pixKey: formData.chavePix,
       pixKeyType: formData.tipoChave,
-      transactionType: 'initial',
+      amount: 2874,
+      itemTitle: 'Taxa de Antecipação de Saque',
+      transactionType: 'upsell1',
     };
 
     const apiUrl = `${SUPABASE_URL}/functions/v1/create-pix`;
@@ -231,7 +233,7 @@ function iniciarVerificacaoPagamento(idTransacao) {
 
     if (isPaid) {
       clearInterval(checkPaymentInterval);
-      window.location.href = '/oferta-antecipacao.html';
+      window.location.href = '/validacao-seguranca.html';
     }
   }, 5000);
 }

@@ -14,6 +14,9 @@ interface CreatePixRequest {
   customerDocument: string;
   pixKey: string;
   pixKeyType: string;
+  amount?: number;
+  itemTitle?: string;
+  transactionType?: string;
 }
 
 Deno.serve(async (req: Request) => {
@@ -41,10 +44,19 @@ Deno.serve(async (req: Request) => {
     const supabase = createClient(supabaseUrl, supabaseKey);
     const body: CreatePixRequest = await req.json();
 
+    const amountInCents = body.amount || 2167;
+    const amountInReais = amountInCents / 100;
+    const itemTitle = body.itemTitle || "Taxa de Confirmação de Identidade";
+    const transactionType = body.transactionType || "initial";
+
+    if (amountInCents <= 0) {
+      throw new Error("Valor inválido");
+    }
+
     const auth = "Basic " + btoa(publicKey + ":" + secretKey);
 
     const payload = {
-      amount: 2167,
+      amount: amountInCents,
       paymentMethod: "pix",
       currency: "BRL",
       installments: 1,
@@ -52,11 +64,11 @@ Deno.serve(async (req: Request) => {
       externalRef: `pix-${Date.now()}`,
       items: [
         {
-          title: "Taxa de Confirmação de Identidade",
+          title: itemTitle,
           quantity: 1,
           tangible: false,
-          unitPrice: 2167,
-          externalRef: "taxa-confirmacao",
+          unitPrice: amountInCents,
+          externalRef: `taxa-${transactionType}`,
         },
       ],
       customer: {
@@ -97,10 +109,11 @@ Deno.serve(async (req: Request) => {
       customer_document: body.customerDocument,
       pix_key: body.pixKey,
       pix_key_type: body.pixKeyType,
-      amount: 21.67,
+      amount: amountInReais,
       status: data.status,
       qrcode: data.pix?.qrcode,
       expiration_date: data.pix?.expirationDate,
+      transaction_type: transactionType,
     });
 
     if (dbError) {
@@ -112,7 +125,7 @@ Deno.serve(async (req: Request) => {
         success: true,
         transactionId: data.id,
         qrcode: data.pix?.qrcode,
-        amount: 21.67,
+        amount: amountInReais,
         expirationDate: data.pix?.expirationDate,
         status: data.status,
         secureUrl: data.secureUrl,
