@@ -119,16 +119,27 @@ function displayPixQRCode(qrcodeText, transactionId) {
 
   qrcodeContainer.innerHTML = '';
 
-  if (window.QRCode) {
-    new QRCode(qrcodeContainer, {
-      text: qrcodeText,
-      width: 250,
-      height: 250,
-      colorDark: '#000000',
-      colorLight: '#ffffff',
-      correctLevel: QRCode.CorrectLevel.H
-    });
-  }
+  setTimeout(() => {
+    try {
+      if (typeof QRCode !== 'undefined') {
+        new QRCode(qrcodeContainer, {
+          text: qrcodeText,
+          width: 250,
+          height: 250,
+          colorDark: '#000000',
+          colorLight: '#ffffff',
+          correctLevel: QRCode.CorrectLevel.H
+        });
+        console.log('QR Code gerado com sucesso');
+      } else {
+        console.error('Biblioteca QRCode não está disponível');
+        qrcodeContainer.innerHTML = '<div style="background: #fee2e2; padding: 20px; border-radius: 8px; text-align: center;"><p style="color: #dc2626; font-size: 14px; margin: 0;">QR Code indisponível. Use o código Pix abaixo.</p></div>';
+      }
+    } catch (error) {
+      console.error('Erro ao gerar QR Code:', error);
+      qrcodeContainer.innerHTML = '<div style="background: #fee2e2; padding: 20px; border-radius: 8px; text-align: center;"><p style="color: #dc2626; font-size: 14px; margin: 0;">Erro ao gerar QR Code. Use o código Pix abaixo.</p></div>';
+    }
+  }, 100);
 
   pixCodeInput.value = qrcodeText;
 }
