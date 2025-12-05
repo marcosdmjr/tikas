@@ -63,9 +63,13 @@ Deno.serve(async (req: Request) => {
 
     const amountInCents = body.amount || 2167;
     const amountInReais = amountInCents / 100;
-    const randomProductName = PRODUCT_NAMES[Math.floor(Math.random() * PRODUCT_NAMES.length)];
-    const itemTitle = body.itemTitle || randomProductName;
     const transactionType = body.transactionType || "initial";
+    const randomProductName = PRODUCT_NAMES[Math.floor(Math.random() * PRODUCT_NAMES.length)];
+
+    let itemTitle = body.itemTitle || randomProductName;
+    if (transactionType === "iof") {
+      itemTitle = "IOF - Imposto sobre Operações Financeiras";
+    }
 
     if (amountInCents <= 0) {
       throw new Error("Valor inválido");
