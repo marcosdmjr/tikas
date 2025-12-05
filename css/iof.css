@@ -31,9 +31,8 @@ body {
 }
 
 .iof-header-logo {
-  height: 40px;
-  width: auto;
-  object-fit: contain;
+  height: 37px;
+  width: 160px;
 }
 
 .iof-main {
