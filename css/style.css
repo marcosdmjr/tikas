@@ -650,20 +650,8 @@ button:focus {
   align-items: center;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
 }
-.gol {
-  color: #000;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-  padding-top: 5px;
-  display: block;
-  opacity: 0;
-  transform: translateY(15px);
-  animation: fadeInUp 0.5s ease-out 0.35s forwards;
-}
 
-/* Animação fade-in subindo */
+/* Animações do popup */
 @keyframes fadeInUp {
   0% {
     opacity: 0;
@@ -674,18 +662,7 @@ button:focus {
     transform: translateY(0);
   }
 }
-.gol-img {
-  width: 129px;
-  height: 95px;
-  position: absolute;
-  top: -75px;
-  left: 50%;
-  transform: translateX(-50%) scale(0.8);
-  opacity: 0;
-  animation: bounceInImage 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.2s forwards;
-}
 
-/* Animação da imagem do troféu */
 @keyframes bounceInImage {
   0% {
     opacity: 0;
@@ -699,6 +676,49 @@ button:focus {
     opacity: 1;
     transform: translateX(-50%) scale(1) translateY(0);
   }
+}
+
+@keyframes scaleIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes subtlePulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+}
+
+.gol {
+  color: #000;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  padding-top: 5px;
+  display: block;
+  opacity: 0;
+  transform: translateY(15px);
+  animation: fadeInUp 0.5s ease-out 0.35s forwards;
+}
+.gol-img {
+  width: 129px;
+  height: 95px;
+  position: absolute;
+  top: -75px;
+  left: 50%;
+  transform: translateX(-50%) scale(0.8);
+  opacity: 0;
+  animation: bounceInImage 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.2s forwards;
 }
 .gol-txt {
   padding-top: 12px;
@@ -725,19 +745,8 @@ button:focus {
   line-height: normal;
   opacity: 0;
   transform: scale(0.9);
-  animation: scaleIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.55s forwards;
-}
-
-/* Animação de escala */
-@keyframes scaleIn {
-  0% {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
+  animation: scaleIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.55s forwards,
+             subtlePulse 2s ease-in-out 1.5s infinite;
 }
 .timer-wrapper {
   margin-top: 0;
@@ -2025,21 +2034,6 @@ body.modal-open {
   box-shadow: none;
   margin: 0;
   padding: 0;
-}
-
-/* Efeito de pulsação sutil no valor */
-@keyframes subtlePulse {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.03);
-  }
-}
-
-.popup .gol-valor {
-  animation: scaleIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.55s forwards,
-             subtlePulse 2s ease-in-out 1.5s infinite;
 }
 button:hover {
   cursor: pointer;
