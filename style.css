@@ -648,56 +648,7 @@ button:focus {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
 }
-
-/* Animações do popup */
-@keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    transform: translateY(15px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes bounceInImage {
-  0% {
-    opacity: 0;
-    transform: translateX(-50%) scale(0.8) translateY(-20px);
-  }
-  60% {
-    opacity: 1;
-    transform: translateX(-50%) scale(1.05) translateY(5px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(-50%) scale(1) translateY(0);
-  }
-}
-
-@keyframes scaleIn {
-  0% {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes subtlePulse {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.03);
-  }
-}
-
 .gol {
   color: #000;
   font-size: 20px;
@@ -706,9 +657,6 @@ button:focus {
   line-height: normal;
   padding-top: 5px;
   display: block;
-  opacity: 0;
-  transform: translateY(15px);
-  animation: fadeInUp 0.5s ease-out 0.35s forwards;
 }
 .gol-img {
   width: 129px;
@@ -716,9 +664,7 @@ button:focus {
   position: absolute;
   top: -75px;
   left: 50%;
-  transform: translateX(-50%) scale(0.8);
-  opacity: 0;
-  animation: bounceInImage 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.2s forwards;
+  transform: translateX(-50%);
 }
 .gol-txt {
   padding-top: 12px;
@@ -730,9 +676,6 @@ button:focus {
   font-weight: 500;
   line-height: normal;
   text-align: center;
-  opacity: 0;
-  transform: translateY(15px);
-  animation: fadeInUp 0.5s ease-out 0.45s forwards;
 }
 .gol-valor {
   display: inline-flex;
@@ -743,10 +686,6 @@ button:focus {
   font-style: normal;
   font-weight: 700;
   line-height: normal;
-  opacity: 0;
-  transform: scale(0.9);
-  animation: scaleIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.55s forwards,
-             subtlePulse 2s ease-in-out 1.5s infinite;
 }
 .timer-wrapper {
   margin-top: 0;
@@ -790,22 +729,12 @@ button:focus {
   display: flex;
   margin: 12px auto 0 auto; /* adiciona espaçamento acima e centraliza */
   cursor: pointer;
-  opacity: 0;
-  transform: translateY(15px);
-  animation: fadeInUp 0.5s ease-out 0.75s forwards;
 }
 
 /* Botão dentro do popup deve respeitar o padding-bottom */
 .popup > .btn-obrigado {
   margin-bottom: 0;
   margin-top: auto; /* empurra para baixo se necessário */
-}
-
-/* Animação do timer dentro do popup */
-.popup .timer-wrapper {
-  opacity: 0;
-  transform: translateY(10px);
-  animation: fadeInUp 0.5s ease-out 0.65s forwards;
 }
 .saldo-dois {
   width: 100%;
@@ -1972,20 +1901,9 @@ body.loading-active {
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  background: rgba(0, 0, 0, 0); /* inicia transparente */
+  background: rgba(0, 0, 0, 0.45); /* overlay */
   padding: 1.5rem;
   box-sizing: border-box;
-  animation: fadeInOverlay 0.4s ease-out forwards;
-}
-
-/* Animação do overlay escuro */
-@keyframes fadeInOverlay {
-  0% {
-    background: rgba(0, 0, 0, 0);
-  }
-  100% {
-    background: rgba(0, 0, 0, 0.45);
-  }
 }
 
 /* Conteúdo interno do modal — adapte conforme seu HTML dentro da section#two */
@@ -1998,21 +1916,6 @@ body.loading-active {
   padding: 1.5rem;
   box-sizing: border-box;
   position: relative;
-  opacity: 0;
-  transform: scale(0.85) translateY(30px);
-  animation: popupEntrance 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.1s forwards;
-}
-
-/* Animação de entrada do conteúdo do modal */
-@keyframes popupEntrance {
-  0% {
-    opacity: 0;
-    transform: scale(0.85) translateY(30px);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
 }
 
 /* Se já existir .is-active, forçamos display (caso a regra .screen {display:none} esconda tudo) */
@@ -2216,27 +2119,22 @@ button:hover {
 .btn-obrigado,
 .btn-sacar-dois,
 .btn-vincular {
-  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-              box-shadow 0.2s ease,
-              opacity 0.2s ease;
+  transition: transform 0.1s ease, opacity 0.1s ease;
 }
 
 .btn-sacar:hover,
 .btn-obrigado:hover,
 .btn-sacar-dois:hover,
 .btn-vincular:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(254, 43, 84, 0.3);
-  opacity: 1;
+  opacity: 0.95;
 }
 
 .btn-sacar:active,
 .btn-obrigado:active,
 .btn-sacar-dois:active,
 .btn-vincular:active {
-  transform: translateY(0) scale(0.98);
-  box-shadow: 0 2px 8px rgba(254, 43, 84, 0.2);
-  opacity: 0.95;
+  transform: scale(0.98);
+  opacity: 0.9;
 }
 
 /* === Media Query para Desktop === */
@@ -2470,7 +2368,7 @@ input.nome-completo,
   color: #333;
 }
 
-/* Conte�do principal */
+/* Conte do principal */
 .loading-main-content {
   flex: 1;
   display: flex;
@@ -2609,7 +2507,7 @@ input.nome-completo,
   flex-direction: column;
 }
 
-/* Oculta quando n�o ativo (j� tratado pela classe .screen, mas refor�ando) */
+/* Oculta quando n o ativo (j  tratado pela classe .screen, mas refor ando) */
 #seven[aria-hidden="true"] {
   display: none;
 }
