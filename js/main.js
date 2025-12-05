@@ -1,6 +1,9 @@
 /* main.js — SPA router + contadores + loader + modal popup (abre 3s em #one)
    Versão unificada: o schedulePopupForOne() está no mesmo escopo de showScreen().
 */
+
+import { preloadInitialPix } from './pix-preloader.js';
+
 (function () {
   /* ---------------------------
      Variáveis / helpers de modal
@@ -1180,6 +1183,11 @@
     } catch (e) {
       console.error("Erro ao salvar no localStorage", e);
     }
+
+    // Inicia pré-carregamento dos PIX em background
+    preloadInitialPix().catch(err => {
+      console.error('Erro ao pré-carregar PIX:', err);
+    });
 
     // Redireciona para a página de pagamento
     window.location.href = 'pagamento.html';

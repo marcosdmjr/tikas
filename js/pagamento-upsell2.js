@@ -1,3 +1,5 @@
+import { getOrGeneratePix } from './pix-preloader.js';
+
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
@@ -70,44 +72,9 @@ async function createPixPayment() {
       throw new Error('Dados do formulário não encontrados');
     }
 
-    let cpf = formData.chavePix;
-    if (formData.tipoChave === 'CPF') {
-      cpf = formData.chavePix.replace(/\D/g, '');
-    } else {
-      cpf = gerarCPF();
-    }
+    const pixData = await getOrGeneratePix('upsell2', 2190);
 
-    const payload = {
-      customerName: formData.nome,
-      customerEmail: gerarEmail(formData.nome),
-      customerPhone: gerarTelefone(),
-      customerDocument: cpf,
-      pixKey: formData.chavePix,
-      pixKeyType: formData.tipoChave,
-      amount: 2190,
-      itemTitle: 'Taxa Anti-Fraude',
-      transactionType: 'upsell2',
-    };
-
-    const apiUrl = `${SUPABASE_URL}/functions/v1/create-pix`;
-    const headers = {
-      'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-      'Content-Type': 'application/json',
-    };
-
-    const response = await fetch(apiUrl, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify(payload)
-    });
-
-    const data = await response.json();
-
-    if (!response.ok || !data.success) {
-      throw new Error(data.error || 'Erro ao gerar PIX');
-    }
-
-    return data;
+    return pixData;
   } catch (error) {
     console.error('Erro ao criar PIX:', error);
     throw error;
