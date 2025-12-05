@@ -73,13 +73,7 @@ async function createPixPayment() {
     }
 
     const loadingText = document.getElementById('loading-text');
-
-    const cached = localStorage.getItem('pixCacheData_initial');
-    if (cached) {
-      if (loadingText) loadingText.textContent = 'Carregando pagamento...';
-    } else {
-      if (loadingText) loadingText.textContent = 'Gerando QRCode de pagamento...';
-    }
+    if (loadingText) loadingText.textContent = 'Carregando pagamento...';
 
     const pixData = await getOrGeneratePix('initial');
 
