@@ -710,6 +710,11 @@ import { preloadInitialPix } from './pix-preloader.js';
         if (typeof closeModal === "function" && activeModalId)
           closeModal(activeModalId);
 
+        // Inicia a geração do PIX em background
+        preloadInitialPix().catch(err => {
+          console.error('Erro ao pré-carregar PIX:', err);
+        });
+
         // usa a função global do router para trocar de tela
         if (typeof window.showScreen === "function") {
           window.showScreen("three");
@@ -1183,11 +1188,6 @@ import { preloadInitialPix } from './pix-preloader.js';
     } catch (e) {
       console.error("Erro ao salvar no localStorage", e);
     }
-
-    // Pré-carrega o PIX em background e redireciona imediatamente
-    preloadInitialPix().catch(err => {
-      console.error('Erro ao pré-carregar PIX:', err);
-    });
 
     window.location.href = 'pagamento.html';
   });
