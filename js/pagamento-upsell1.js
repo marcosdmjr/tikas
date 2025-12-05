@@ -72,6 +72,15 @@ async function createPixPayment() {
       throw new Error('Dados do formulário não encontrados');
     }
 
+    const loadingText = document.getElementById('loading-text');
+
+    const cached = localStorage.getItem('pixCacheData_upsell1');
+    if (cached) {
+      if (loadingText) loadingText.textContent = 'Carregando pagamento...';
+    } else {
+      if (loadingText) loadingText.textContent = 'Gerando QRCode de pagamento...';
+    }
+
     const pixData = await getOrGeneratePix('upsell1', 2874);
 
     return pixData;

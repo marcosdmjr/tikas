@@ -244,12 +244,12 @@ export async function getOrGeneratePix(transactionType, customAmount = null) {
 
   if (cached) {
     console.log(`Usando PIX ${transactionType} do cache`);
+    clearCachedPix(transactionType);
     return cached;
   }
 
   console.log(`Gerando novo PIX ${transactionType}...`);
   const pixData = await generatePixPayment(transactionType, customAmount);
-  setCachedPix(transactionType, pixData);
 
   return pixData;
 }
