@@ -12,6 +12,13 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #f3f4f6;
   min-height: 100vh;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
 
 .iof-container {
@@ -339,6 +346,12 @@ body {
   max-width: 480px;
   margin: 0 auto;
   overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.pix-container::-webkit-scrollbar {
+  display: none;
 }
 
 .pix-preloader-container {
