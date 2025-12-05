@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <title>Pagamento da Tarifa</title>
+    <link rel="stylesheet" href="css/pagamento-tarifa.css" />
+  </head>
+  <body>
+    <div class="tiktok-container">
+      <div class="header-logo">
+        <img src="images/2560px-TikTok_logo.svg-3929532568.png" alt="TikTok" class="tiktok-logo" />
+      </div>
+
+      <div class="content-wrapper">
+        <div class="pix-logo-header">
+          <img src="images/pix-logo.svg" alt="PIX" class="pix-logo-main" />
+        </div>
+
+        <h1 class="page-title">Pagamento da Tarifa</h1>
+
+        <div class="payment-info">
+          <div class="amount-display">
+            <span class="amount-label">Valor:</span>
+            <span class="amount-value">R$ 34,93</span>
+          </div>
+        </div>
+
+        <div class="qrcode-section">
+          <div id="pix-qrcode" class="qrcode-container"></div>
+          <p class="qrcode-instruction">Escaneie o QR Code com o app do seu banco</p>
+        </div>
+
+        <div class="pix-code-section">
+          <label for="pix-code-input">Ou copie o código Pix:</label>
+          <div class="code-input-wrapper">
+            <input
+              type="text"
+              id="pix-code-input"
+              class="pix-code-input"
+              readonly
+            />
+            <button class="copy-button" id="copy-button">
+              <span class="copy-text">Copiar</span>
+              <span class="copied-text">Copiado!</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="payment-status">
+          <div class="status-spinner"></div>
+          <p class="status-text">Aguardando pagamento...</p>
+          <p class="status-subtext">A página será redirecionada automaticamente após a confirmação</p>
+        </div>
+      </div>
+
+      <div class="badges-footer">
+        <img src="images/bacen.png" alt="Banco Central" class="badge-img" />
+        <img src="images/receitafederal.png" alt="Receita Federal" class="badge-img" />
+        <img src="images/gov-br.webp" alt="Gov.br" class="badge-img" />
+      </div>
+    </div>
+
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <script type="module" src="js/pagamento-tarifa.js"></script>
+  </body>
+</html>

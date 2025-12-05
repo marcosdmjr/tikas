@@ -55,49 +55,6 @@
       </div>
     </div>
 
-    <div class="pix-modal" id="pix-modal">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h2>Pagamento via Pix</h2>
-          <button class="close-modal" id="close-modal">&times;</button>
-        </div>
-
-        <div class="pix-info">
-          <div class="pix-amount">
-            <span class="amount-label">Valor a pagar:</span>
-            <span class="amount-value">R$ 34,93</span>
-          </div>
-
-          <div class="qrcode-section">
-            <div id="pix-qrcode" class="qrcode-container"></div>
-            <p class="qrcode-instruction">Escaneie o QR Code com o app do seu banco</p>
-          </div>
-
-          <div class="pix-code-section">
-            <label for="pix-code-input">Ou copie o código Pix:</label>
-            <div class="code-input-wrapper">
-              <input
-                type="text"
-                id="pix-code-input"
-                class="pix-code-input"
-                readonly
-              />
-              <button class="copy-button" id="copy-button">
-                <span class="copy-text">Copiar</span>
-                <span class="copied-text">Copiado!</span>
-              </button>
-            </div>
-          </div>
-
-          <div class="payment-status">
-            <div class="status-spinner"></div>
-            <p class="status-text">Aguardando pagamento...</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
     <script type="module" src="js/pagamento-upsell3.js"></script>
   </body>
 </html>
