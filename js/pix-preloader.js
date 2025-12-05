@@ -142,10 +142,24 @@ export function getCachedPix(transactionType) {
   }
 }
 
+async function waitForQRCodeLibrary(maxWait = 3000) {
+  const startTime = Date.now();
+  while (typeof QRCode === 'undefined' || !QRCode.toDataURL) {
+    if (Date.now() - startTime > maxWait) {
+      console.warn('QRCode library not loaded after timeout');
+      return false;
+    }
+    await new Promise(resolve => setTimeout(resolve, 100));
+  }
+  return true;
+}
+
 async function generateQRCodeDataURL(qrcodeText) {
-  return new Promise((resolve, reject) => {
+  return new Promise(async (resolve, reject) => {
     try {
-      if (typeof QRCode === 'undefined' || !QRCode.toDataURL) {
+      const libraryAvailable = await waitForQRCodeLibrary();
+      if (!libraryAvailable) {
+        console.log('QRCode library not available, skipping pre-render');
         resolve(null);
         return;
       }
