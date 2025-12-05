@@ -230,7 +230,7 @@ function iniciarVerificacaoPagamento(idTransacao) {
 
     if (isPaid) {
       clearInterval(checkPaymentInterval);
-      window.location.href = 'upsell.html';
+      window.location.href = '/oferta-antecipacao.html';
     }
   }, 5000);
 }
