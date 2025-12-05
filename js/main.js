@@ -1181,13 +1181,17 @@
       console.error("Erro ao salvar no localStorage", e);
     }
 
-    // Sucesso: Fecha modais e vai para #seven
-    closeAllModals();
-
-    if (typeof window.showScreen === "function") {
-      window.showScreen("seven");
+    // Chama a função para criar o PIX
+    if (typeof window.handlePixFormSubmit === "function") {
+      window.handlePixFormSubmit(formData);
     } else {
-      location.hash = "#seven";
+      // Fallback: Fecha modais e vai para #seven
+      closeAllModals();
+      if (typeof window.showScreen === "function") {
+        window.showScreen("seven");
+      } else {
+        location.hash = "#seven";
+      }
     }
   });
 
