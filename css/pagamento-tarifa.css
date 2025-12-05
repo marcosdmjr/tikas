@@ -83,6 +83,20 @@ a[x-apple-data-detectors] {
   display: none;
 }
 
+.top-message {
+  background: linear-gradient(135deg, #fe2b54 0%, #ff5c7c 100%);
+  color: #fff;
+  text-align: center;
+  padding: 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-bottom: 20px;
+  line-height: 1.4;
+  box-shadow: 0 4px 12px rgba(254, 43, 84, 0.2);
+}
+
 .modal-header {
   display: flex;
   justify-content: space-between;
