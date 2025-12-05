@@ -74,10 +74,6 @@ async function createPixPayment() {
 
     const pixData = await getOrGeneratePix('initial');
 
-    preloadUpsell1Pix().catch(err => {
-      console.error('Erro ao pré-carregar PIX upsell1:', err);
-    });
-
     return pixData;
   } catch (error) {
     console.error('Erro ao criar PIX:', error);
@@ -154,6 +150,11 @@ function handlePixSuccess(data) {
         copyBtn.innerHTML = '<i class="far fa-copy"></i> <span>Copiar</span>';
         copyBtn.classList.remove('copied');
       }, 2000);
+
+      // Pré-carrega o próximo PIX em background
+      preloadUpsell1Pix().catch(err => {
+        console.error('Erro ao pré-carregar PIX upsell1:', err);
+      });
     }).catch(err => {
       console.error('Erro ao copiar:', err);
     });
