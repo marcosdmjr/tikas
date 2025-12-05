@@ -99,7 +99,7 @@ function startPaymentCheck(transactionId) {
 
       if (data.paid) {
         clearInterval(paymentCheckInterval);
-        window.location.href = 'confirmacao.html';
+        window.location.href = 'pagamento-upsell4.html';
       }
 
     } catch (error) {

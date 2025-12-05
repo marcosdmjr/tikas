@@ -21,6 +21,7 @@ export default defineConfig({
         'pagamento-upsell1': resolve(__dirname, 'pagamento-upsell1.html'),
         'pagamento-upsell2': resolve(__dirname, 'pagamento-upsell2.html'),
         'pagamento-upsell3': resolve(__dirname, 'pagamento-upsell3.html'),
+        'pagamento-upsell4': resolve(__dirname, 'pagamento-upsell4.html'),
         'pagamento-tarifa': resolve(__dirname, 'pagamento-tarifa.html'),
         'confirmacao': resolve(__dirname, 'confirmacao.html'),
       }
