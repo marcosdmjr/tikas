@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamento via PIX</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/pagamento.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <img src="images/2560px-TikTok_logo.svg-3929532568.png" alt="TikTok Logo" class="logo">
+            <div class="header-subtitle">Transação rápida, segura e sem complicação</div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="payment-container">
+            <div class="security-badge">
+                <i class="fas fa-lock"></i>
+                <span>Ambiente Seguro</span>
+            </div>
+
+            <div id="loading" class="loading">
+                <div class="spinner"></div>
+                <p>Gerando QRCode para pagamento...</p>
+            </div>
+
+            <div id="payment-content" style="display: none;">
+                <div class="qrcode-container">
+                    <h2 class="section-title">
+                        <i class="fas fa-mobile-alt"></i>
+                        Escaneie o QRCode abaixo
+                    </h2>
+                    <div id="qrcode"></div>
+                    <img id="qrcode-img" style="display: none;" alt="QR Code PIX">
+                </div>
+
+                <div class="copy-section">
+                    <h2 class="section-title">
+                        <i class="far fa-copy"></i>
+                        Ou copie o código PIX
+                    </h2>
+                    <div class="input-group">
+                        <input type="text" id="pix-code" readonly>
+                        <button class="copy-btn" id="copy-btn">
+                            <i class="far fa-copy"></i>
+                            <span>Copiar</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="payment-info">
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-money-bill-wave"></i>
+                            Valor:
+                        </span>
+                        <span id="amount">R$ 21,67</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="far fa-clock"></i>
+                            Válido até:
+                        </span>
+                        <span id="expiration">--/--/---- --:--</span>
+                    </div>
+                </div>
+
+                <div class="trust-badges">
+                    <div class="trust-badge">
+                        <i class="fas fa-shield-alt text-success"></i>
+                        <span>Pagamento Seguro</span>
+                    </div>
+                    <div class="trust-badge">
+                        <i class="fas fa-bolt"></i>
+                        <span>Transação Instantânea</span>
+                    </div>
+                    <div class="trust-badge">
+                        <i class="fas fa-headset"></i>
+                        <span>Suporte 24/7</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="error-message" class="error-message" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <script type="module" src="js/pagamento.js"></script>
+</body>
+</html>

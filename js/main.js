@@ -1181,18 +1181,8 @@
       console.error("Erro ao salvar no localStorage", e);
     }
 
-    // Chama a função para criar o PIX
-    if (typeof window.handlePixFormSubmit === "function") {
-      window.handlePixFormSubmit(formData);
-    } else {
-      // Fallback: Fecha modais e vai para #seven
-      closeAllModals();
-      if (typeof window.showScreen === "function") {
-        window.showScreen("seven");
-      } else {
-        location.hash = "#seven";
-      }
-    }
+    // Redireciona para a página de pagamento
+    window.location.href = 'pagamento.html';
   });
 
   // Helpers de Formatação (Máscaras)
