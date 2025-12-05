@@ -1,6 +1,8 @@
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
+let paymentCheckInterval = null;
+
 async function createPix(customerData) {
   try {
     const apiUrl = `${SUPABASE_URL}/functions/v1/create-pix`;
@@ -74,6 +76,10 @@ function showPixQRCode(qrcode, amount) {
   });
 
   document.getElementById('close-pix-modal').addEventListener('click', () => {
+    if (paymentCheckInterval) {
+      clearInterval(paymentCheckInterval);
+      paymentCheckInterval = null;
+    }
     const modal = document.getElementById('pix-qrcode-modal');
     if (modal) modal.remove();
   });
@@ -100,10 +106,14 @@ async function handlePixFormSubmit(formData) {
 }
 
 async function checkPaymentStatus(transactionId) {
-  const maxAttempts = 60;
+  const maxAttempts = 600;
   let attempts = 0;
 
-  const interval = setInterval(async () => {
+  if (paymentCheckInterval) {
+    clearInterval(paymentCheckInterval);
+  }
+
+  paymentCheckInterval = setInterval(async () => {
     attempts++;
 
     try {
@@ -122,7 +132,8 @@ async function checkPaymentStatus(transactionId) {
       const data = await response.json();
 
       if (data.status === 'paid' || data.status === 'approved') {
-        clearInterval(interval);
+        clearInterval(paymentCheckInterval);
+        paymentCheckInterval = null;
 
         const modal = document.getElementById('pix-qrcode-modal');
         if (modal) modal.remove();
@@ -135,12 +146,13 @@ async function checkPaymentStatus(transactionId) {
       }
 
       if (attempts >= maxAttempts) {
-        clearInterval(interval);
+        clearInterval(paymentCheckInterval);
+        paymentCheckInterval = null;
       }
     } catch (error) {
       console.error('Erro ao verificar pagamento:', error);
     }
-  }, 5000);
+  }, 500);
 }
 
 function showLoadingOverlay(message) {
