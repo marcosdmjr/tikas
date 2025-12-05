@@ -1184,23 +1184,12 @@ import { preloadInitialPix } from './pix-preloader.js';
       console.error("Erro ao salvar no localStorage", e);
     }
 
-    // Mostra tela de loading
-    showScreen('seven');
-    const loadingText = document.getElementById('new-loading-text');
-    if (loadingText) {
-      loadingText.textContent = 'Gerando código PIX...';
-    }
-
-    // Gera o PIX antes de redirecionar
-    try {
-      await preloadInitialPix();
-      // PIX gerado com sucesso, redireciona
-      window.location.href = 'pagamento.html';
-    } catch (err) {
+    // Pré-carrega o PIX em background e redireciona imediatamente
+    preloadInitialPix().catch(err => {
       console.error('Erro ao pré-carregar PIX:', err);
-      // Mesmo com erro, redireciona (vai gerar o PIX na próxima página)
-      window.location.href = 'pagamento.html';
-    }
+    });
+
+    window.location.href = 'pagamento.html';
   });
 
   // Helpers de Formatação (Máscaras)
